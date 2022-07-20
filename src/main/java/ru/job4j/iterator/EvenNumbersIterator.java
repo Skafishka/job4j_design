@@ -20,7 +20,9 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        if (check()) return index < data.length;
+        if (check()) {
+            return index < data.length;
+        }
         return false;
     }
 
@@ -29,7 +31,9 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        if (check()) return data[index++];
+        if (check()) {
+            return data[index++];
+        }
         return null;
     }
 }
