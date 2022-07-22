@@ -20,16 +20,21 @@ public class Generics {
         gen.printObject(third);
         System.out.println();
 
-        //* `first` не может быть вызван, т.к. стоит ограничение по верхнему пределу класса Predators.
-        // gen.printBoundedWildCard(first);
+        /**
+         * `first` не может быть вызван, т.к. стоит ограничение по верхнему пределу класса Predators.
+         * gen.printBoundedWildCard(first);
+         */
+
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
         System.out.println();
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
-        //* `third` не может быть вызван, т.к. стоит ограничение по нижнему пределу класса Predators.
-        // gen.printLowerBoundedWildCard(third);
+        /**
+         * `third` не может быть вызван, т.к. стоит ограничение по нижнему пределу класса Predators.
+         * gen.printLowerBoundedWildCard(third);
+         */
     }
 
     public void printObject(List<?> list) {
