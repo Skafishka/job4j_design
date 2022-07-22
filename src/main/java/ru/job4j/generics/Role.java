@@ -5,7 +5,6 @@ public class Role extends Base {
     private final String executionRole;
     private final String username;
 
-
     public Role(String id, String name, String position) {
         super(id);
         this.username = name;
