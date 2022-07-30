@@ -21,58 +21,64 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public void add(T value) {
         modCount++;
-        if (container.length <= size) {
+        if (container.length == size) {
             grow(this.container);
-        } else {
-            add(value);
-            size++;
         }
+        container[size++] = value;
     }
 
     @Override
     public T set(int index, T newValue) {
-        modCount++;
-        if (Objects.checkIndex(index, container.length) != index) {
-            throw new IndexOutOfBoundsException();
-        } else {
-            return set(index, newValue);
-        }
+        Objects.checkIndex(index, size);
+        T t = get(index);
+        container[index] = newValue;
+        return t;
     }
+
 
     @Override
     public T remove(int index) {
-        return null;
+        modCount++;
+        T t = get(index);
+        Objects.checkIndex(index, size);
+        System.arraycopy(container, index + 1, container, index,size - index - 1);
+        container[size - 1] = null;
+        size--;
+        return t;
     }
 
     @Override
     public T get(int index) {
-        return null;
+        Objects.checkIndex(index, size);
+        return container[index];
     }
 
     @Override
     public int size() {
-        return this.size;
+        return size;
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-
-            private int expectedModCount = modCount;
+            private int q = 0;
+            private final int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return false;
+                return q < size;
             }
 
             @Override
             public T next() {
-                return null;
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return container[q++];
             }
-
         };
     }
 }
