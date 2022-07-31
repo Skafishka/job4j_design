@@ -14,8 +14,11 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         this.container = (T[]) new Object[capacity];
     }
 
-    public void grow(T[] container) {
+    private void grow(T[] container) {
         this.container = Arrays.copyOf(container, container.length * 2);
+        if (this.container.length == 0) {
+            this.container = Arrays.copyOf(container, 10);
+        }
     }
 
     @Override
@@ -30,7 +33,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public T set(int index, T newValue) {
         Objects.checkIndex(index, size);
-        T t = get(index);
+        T t = container[index];
         container[index] = newValue;
         return t;
     }
@@ -38,8 +41,8 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public T remove(int index) {
         modCount++;
-        T t = get(index);
         Objects.checkIndex(index, size);
+        T t = container[index];
         System.arraycopy(container, index + 1, container, index, size - index - 1);
         container[size - 1] = null;
         size--;
@@ -59,7 +62,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             private int q = 0;
             private final int expectedModCount = modCount;
 
