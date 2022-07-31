@@ -35,13 +35,12 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         return t;
     }
 
-
     @Override
     public T remove(int index) {
         modCount++;
         T t = get(index);
         Objects.checkIndex(index, size);
-        System.arraycopy(container, index + 1, container, index,size - index - 1);
+        System.arraycopy(container, index + 1, container, index, size - index - 1);
         container[size - 1] = null;
         size--;
         return t;
