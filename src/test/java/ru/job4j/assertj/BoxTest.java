@@ -60,7 +60,7 @@ class BoxTest {
 
     @Test
     void isGetAreaCase4() {
-        Box box = new Box(4 , 3);
+        Box box = new Box(4, 3);
         double area = box.getArea();
         assertThat(area).isEqualTo(15.58d, withPrecision(0.06d))
                 .isCloseTo(15.58d, withPrecision(0.06d));
