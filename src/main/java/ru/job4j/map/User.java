@@ -51,4 +51,5 @@ public class User {
         User user = (User) o;
         return children == user.children && Objects.equals(name, user.name) && Objects.equals(birthday, user.birthday);
     }
+
 }
