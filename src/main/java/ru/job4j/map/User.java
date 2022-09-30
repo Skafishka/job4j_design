@@ -32,10 +32,5 @@ public class User {
                 hashCode1, hash1, bucket1);
         System.out.printf(" Second user hashcode: %s, hash: %s. bucket: %s",
                 hashCode2, hash2, bucket2);
-
     }
-
-
-
-
 }
