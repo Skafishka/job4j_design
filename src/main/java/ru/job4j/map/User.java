@@ -39,4 +39,9 @@ public class User {
     public int hashCode() {
         return Objects.hash(name, children, birthday);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }
