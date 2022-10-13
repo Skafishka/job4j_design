@@ -10,7 +10,7 @@ public class LogFilter {
         List<String> list = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             list = in.lines()
-                    .filter(q -> q.contains(" 404 "))
+                    .filter(q -> q.contains(" 404"))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -23,7 +23,7 @@ public class LogFilter {
                 new BufferedOutputStream(
                         new FileOutputStream(file)
                 ))) {
-            out.println(log);
+            log.forEach(out::println);
         } catch (IOException e) {
             e.printStackTrace();
         }
