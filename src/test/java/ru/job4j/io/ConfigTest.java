@@ -8,10 +8,10 @@ class ConfigTest {
 
     @Test
     void whenPairWithComment() {
-        String path = "data/test1.properties";
+        String path = "data/app.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("name")).isEqualTo("Sergei Kolygin");
+        assertThat(config.value("name")).isEqualTo("Sergei Kolygin=1");
     }
 
     @Test
