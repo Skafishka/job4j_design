@@ -7,21 +7,16 @@ import static java.lang.System.lineSeparator;
 
 public class Analysis {
 
-    private String rsl;
-
-    public void unavailable(String source, String target) {
+    public static void unavailable(String source, String target) {
         try (BufferedReader in = new BufferedReader(new FileReader(source))) {
             try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
                 boolean check = false;
                 for (String tmpString = in.readLine(); tmpString != null; tmpString = in.readLine()) {
-                    if (!check && tmpString.startsWith("500") || !check && tmpString.startsWith("400")) {
-                        rsl = tmpString.substring(tmpString.indexOf(' ') + 1) + ";";
-                        out.print(rsl);
+                    if (!check && (tmpString.startsWith("500") || tmpString.startsWith("400"))) {
+                        out.print(tmpString.substring(tmpString.indexOf(' ') + 1) + ";");
                         check = true;
-                    }
-                    if (check && tmpString.startsWith("300") || tmpString.startsWith("200")) {
-                        rsl = tmpString.substring(tmpString.indexOf(' ') + 1) + ";" + lineSeparator();
-                        out.print(rsl);
+                    } else if (check && (tmpString.startsWith("300") || tmpString.startsWith("200"))) {
+                        out.print(tmpString.substring(tmpString.indexOf(' ') + 1) + ";" + lineSeparator());
                         check = false;
                     }
                 }
@@ -32,7 +27,7 @@ public class Analysis {
     }
 
     public static void main(String[] args) {
-        try (PrintWriter out = new PrintWriter(new FileOutputStream("/data/server.csv"))) {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream("./data/server.csv"))) {
             out.println("200 10:56:01");
             out.println("200 10:56:01");
             out.println("500 10:57:01");
@@ -43,7 +38,6 @@ public class Analysis {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Analysis q = new Analysis();
-        q.unavailable("/data/server.csv", "/data/unavailable.csv");
+        unavailable("./data/server.csv", "./data/unavailable.csv");
     }
 }
