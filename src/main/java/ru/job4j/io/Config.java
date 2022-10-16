@@ -4,12 +4,11 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 public class Config {
 
     private final String path;
-    private Map<String, String> values = new HashMap<>();
+    private final Map<String, String> values = new HashMap<>();
 
     public Config(final String path) {
         this.path = path;
@@ -17,10 +16,15 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            values = read.lines()
+            read.lines()
                     .filter(q -> q.length() > 0 && q.charAt(0) != '#')
-                    .map(q -> q.split("=", 2))
-                    .collect(Collectors.toMap(k -> k[0], v -> v[1]));
+                    .forEach(q -> {
+                        String[] string = q.split("=", 2);
+                        if (q.startsWith("=") || (!q.contains("=")) || string[1].isEmpty()) {
+                            throw new IllegalArgumentException(String.format("Incorrect line %s", q));
+                        }
+                        values.put(string[0], string[1]);
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,6 +50,6 @@ public class Config {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Config("data/app.properties"));
+        System.out.println(new Config("./data/app.properties"));
     }
 }
