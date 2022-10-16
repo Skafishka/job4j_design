@@ -12,12 +12,10 @@ public class Analysis {
             try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
                 boolean check = false;
                 for (String tmpString = in.readLine(); tmpString != null; tmpString = in.readLine()) {
-                    if (!check && (tmpString.startsWith("500") || tmpString.startsWith("400"))) {
-                        out.print(tmpString.substring(tmpString.indexOf(' ') + 1) + ";");
-                        check = true;
-                    } else if (check && (tmpString.startsWith("300") || tmpString.startsWith("200"))) {
-                        out.print(tmpString.substring(tmpString.indexOf(' ') + 1) + ";" + lineSeparator());
-                        check = false;
+                    if (!check == (tmpString.startsWith("500") || tmpString.startsWith("400"))) {
+                        out.append(tmpString.substring(tmpString.indexOf(' ') + 1)).append(";")
+                                .append(check ? lineSeparator() : "");
+                        check = !check;
                     }
                 }
             }
