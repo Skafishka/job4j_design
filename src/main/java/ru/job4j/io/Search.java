@@ -16,13 +16,13 @@ public class Search {
     }
 
     public static void checkArgs(String[] args) {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Root folder is not full. Usage ROOT_FOLDER");
+        if (args.length != 2) {
+            throw new IllegalArgumentException("In the root folder has no two arguments. Usage ROOT_FOLDER");
         }
         if (args[0].isEmpty()) {
             throw new IllegalArgumentException("Paths directory is not exist");
         }
-        if (args[1].contains(".properties")) {
+        if (args[1].contains(".")) {
             throw new IllegalArgumentException("File extension is not correct");
         }
     }
