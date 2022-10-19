@@ -45,4 +45,5 @@ public class Zip {
                 Search.search(dir, q -> !q.toFile().getName().endsWith(argsParams.get("e"))),
                 Paths.get(argsParams.get("o")));
     }
+
 }
