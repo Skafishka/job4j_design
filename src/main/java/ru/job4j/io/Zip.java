@@ -34,13 +34,28 @@ public class Zip {
         }
     }
 
+    public static ArgsName validate(String[] args) {
+        ArgsName argsToCheck = ArgsName.of(args);
+        if (argsToCheck.get("d").isEmpty()) {
+            throw new IllegalArgumentException("The directory value is not mentioned");
+        }
+        if (Files.isDirectory(Paths.get(argsToCheck.get("d")))) {
+            throw new IllegalArgumentException(String.format("%s directory is not exist", argsToCheck.get("d")));
+        }
+        if (argsToCheck.get("e").isEmpty()) {
+            throw new IllegalArgumentException("The excluded file extension is not exist");
+        }
+        if (argsToCheck.get("o").isEmpty()) {
+            throw new IllegalArgumentException("The target file is not mentioned");
+        }
+        return null;
+    }
+
     public static void main(String[] args) throws IOException {
         Zip zip = new Zip();
+        validate(args);
         ArgsName argsParams = ArgsName.of(args);
         Path dir = Paths.get(argsParams.get("d"));
-        if ((!Files.isDirectory(dir))) {
-            throw new IllegalArgumentException(String.format("%s directory is not exist", argsParams.get("d")));
-        }
         zip.packFiles(
                 Search.search(dir, q -> !q.toFile().getName().endsWith(argsParams.get("e"))),
                 Paths.get(argsParams.get("o")));
