@@ -11,38 +11,34 @@ public class ArgsName {
     public String get(String key) {
         String value = values.get(key);
         if (value == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("There is no value");
         }
         return value;
     }
 
     private void parse(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("There are no arguments");
         }
         Arrays.stream(args)
                 .toList()
                 .forEach(q -> {
-                    int equalIndex = q.indexOf("=");
                     String[] w = q.split("=", 2);
-                    String[] e = w[0].split("-", 2);
+                    int equalIndex = q.indexOf("=");
                     validate(q, equalIndex);
-                    values.put(e[1], w[1]);
+                    values.put(w[0].substring(1), w[1]);
                 });
     }
 
     private void validate(String line, int index) {
         if (line.indexOf("-") != 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(String.format("In line %s absence of - sign", line));
         }
-        if (index == -1) {
-            throw new IllegalArgumentException();
-        }
-        if (index == 1) {
-            throw new IllegalArgumentException();
+        if (index == -1 || index == 1) {
+            throw new IllegalArgumentException(String.format("in line %s there is no key", line));
         }
         if (index == line.length() - 1) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(String.format("In line %s absence of value", line));
         }
     }
 
