@@ -23,9 +23,9 @@ public class ArgsName {
         Arrays.stream(args)
                 .toList()
                 .forEach(q -> {
-                    String[] w = q.split("=", 2);
                     int equalIndex = q.indexOf("=");
                     validate(q, equalIndex);
+                    String[] w = q.split("=", 2);
                     values.put(w[0].substring(1), w[1]);
                 });
     }
@@ -34,7 +34,7 @@ public class ArgsName {
         if (line.indexOf("-") != 0) {
             throw new IllegalArgumentException(String.format("In line %s absence of - sign", line));
         }
-        if (index == -1 || index == 1) {
+        if (index < 2) {
             throw new IllegalArgumentException(String.format("in line %s there is no key", line));
         }
         if (index == line.length() - 1) {
