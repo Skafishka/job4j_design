@@ -22,7 +22,7 @@ public class Search {
         if (args[0].isEmpty()) {
             throw new IllegalArgumentException("Paths directory is not exist");
         }
-        if (args[1].contains(".")) {
+        if (!args[1].startsWith(".")) {
             throw new IllegalArgumentException("File extension is not correct");
         }
     }
