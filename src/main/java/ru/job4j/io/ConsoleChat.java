@@ -2,9 +2,7 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ConsoleChat {
     private static final String OUT = "out";
@@ -21,21 +19,31 @@ public class ConsoleChat {
     public void run() {
         Scanner input = new Scanner(System.in);
         System.out.println("Lets start");
-        String question = input.nextLine();
         Random randomBotAnswer = new Random();
         List<String> answerOfBot = readPhrases();
         List<String> chatHistory = new ArrayList<>();
-        String call = null;
+        String call;
+        boolean isOut = false;
+        boolean isContinue = true;
 
-        while (!OUT.equals(call)) {
+        while (!isOut) {
             call = input.nextLine();
             String answer = answerOfBot.get(randomBotAnswer.nextInt(answerOfBot.size()));
             chatHistory.add(call);
             switch (call) {
+                case OUT:
+                    isOut = true;
+                    break;
                 case STOP:
+                    isContinue = false;
+                    break;
+                case CONTINUE:
+                    isContinue = true;
+                    chatHistory.add(answer);
+                    System.out.println(answer);
                     break;
                 default:
-                    if (CONTINUE.equals(call)) {
+                    if (isContinue) {
                         System.out.println(answer);
                         chatHistory.add(answer);
                     }
@@ -47,7 +55,7 @@ public class ConsoleChat {
     private List<String> readPhrases() {
         List<String> result = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(botAnswers))) {
-            return br.lines().collect(Collectors.toList());
+            br.lines().forEach(result::add);
         } catch (IOException e) {
             e.printStackTrace();
         }
