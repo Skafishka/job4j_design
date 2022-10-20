@@ -66,4 +66,5 @@ public class ConsoleChat {
         ConsoleChat cc = new ConsoleChat("./data/chat.txt", "./data/answerOfBot.txt");
         cc.run();
     }
+
 }
