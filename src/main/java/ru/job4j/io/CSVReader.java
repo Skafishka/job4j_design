@@ -74,7 +74,7 @@ public class CSVReader {
         if (!args[0].endsWith(".csv")) {
             throw new IllegalArgumentException("The paths directory has wrong extension or does not exist");
         }
-        if (args[1].length() > 1) {
+        if (args[1].length() > 12) {
             throw new IllegalArgumentException("The delimiter should be one type");
         }
         if (!args[2].endsWith(".csv")) {
