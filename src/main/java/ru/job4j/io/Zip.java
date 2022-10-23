@@ -42,10 +42,10 @@ public class Zip {
         if (Files.isDirectory(Paths.get(argsToCheck.get("d")))) {
             throw new IllegalArgumentException(String.format("%s directory is not exist", argsToCheck.get("d")));
         }
-        if (argsToCheck.get("e").isEmpty()) {
+        if (argsToCheck.get("e").isEmpty() || !argsToCheck.get("e").startsWith(".")) {
             throw new IllegalArgumentException("The excluded file extension is not exist");
         }
-        if (argsToCheck.get("o").isEmpty()) {
+        if (argsToCheck.get("o").isEmpty() || !argsToCheck.get("o").contains(".zip")) {
             throw new IllegalArgumentException("The target file is not mentioned");
         }
         return null;
