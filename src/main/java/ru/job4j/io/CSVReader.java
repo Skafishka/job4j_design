@@ -6,7 +6,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class CSVReader {
-    public static List<String> handle(ArgsName argsName) throws Exception {
+
+    public static String handle(ArgsName argsName) throws Exception {
         Path file = Paths.get(argsName.get("path"));
         List<String> fileValues = new ArrayList<>();
         List<Integer> indexes = new ArrayList<>();
@@ -22,6 +23,8 @@ public class CSVReader {
             while (filterValues.hasNext()) {
                 indexes.add(fileValues.indexOf(filterValues.next()));
             }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Filter parameters or not exist or not in line with the source data");
         }
 
         try (var lines = new Scanner(file).useDelimiter(System.lineSeparator())) {
@@ -61,31 +64,33 @@ public class CSVReader {
             e.printStackTrace();
         }
 
-        return null;
+        return rsl;
     }
 
     public static void checkArgs(String[] args) {
         if (args.length != 4) {
             throw new IllegalArgumentException("In the root folder has no four arguments. Usage ROOT_FOLDER");
         }
-        if (args[0].isEmpty()) {
-            throw new IllegalArgumentException("Paths directory is not exist");
+        if (!args[0].endsWith(".csv")) {
+            throw new IllegalArgumentException("The paths directory has wrong extension or does not exist");
         }
-        if (args[1].isEmpty()) {
-            throw new IllegalArgumentException("File extension is absent");
+        if (args[1].length() > 1) {
+            throw new IllegalArgumentException("The delimiter should be one type");
         }
-        if (args[2].isEmpty()) {
-            throw new IllegalArgumentException("Out directory is not exist");
+        if (!args[2].endsWith(".csv")) {
+            throw new IllegalArgumentException("The source directory has wrong extension");
         }
-        if (args[3].isEmpty()) {
-            throw new IllegalArgumentException("Filter parameters are absent");
-        }
+    }
+
+    public static void writeOut(ArgsName argsName) throws Exception {
+        System.out.println(handle(argsName));
     }
 
     public static void main(String[] args) throws Exception {
         checkArgs(args);
         ArgsName rsl = ArgsName.of(args);
         handle(rsl);
+        writeOut(rsl);
     }
 
 }
