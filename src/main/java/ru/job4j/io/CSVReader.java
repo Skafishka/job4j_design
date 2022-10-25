@@ -7,16 +7,26 @@ import java.util.*;
 
 public class CSVReader {
 
-  public static String handle(ArgsName argsName) throws Exception {
+    static String rsl;
+
+    public static void handle(ArgsName argsName) throws Exception {
         Path file = Paths.get(argsName.get("path"));
         List<String> fileValues = new ArrayList<>();
         List<Integer> indexes = new ArrayList<>();
         List<String> text = new ArrayList<>();
 
+        List<String> fileValues1 = new ArrayList<>();
+        String del = argsName.get("delimiter");
         try (var lines = new Scanner(file).useDelimiter(System.lineSeparator())) {
-            var words = lines.useDelimiter(";|\r\n");
-            while (words.hasNext()) {
-                fileValues.add(words.next());
+            while (lines.hasNext()) {
+                fileValues1.add(lines.next());
+            }
+        }
+        for (String d : fileValues1) {
+            try (var v = new Scanner(d).useDelimiter(del)) {
+                while (v.hasNext()) {
+                    fileValues.add(v.next());
+                }
             }
         }
 
@@ -55,35 +65,44 @@ public class CSVReader {
             }
             collectedArray.append(collectedString).append(System.lineSeparator());
         }
-        return collectedArray.toString();
+        rsl = collectedArray.toString();
 
+        checkArgs(argsName);
+        writeOut(argsName, rsl);
     }
 
     public static void checkArgs(ArgsName argsName) {
-        if (!argsName.get("path").endsWith(".csv")) {
+        String del = argsName.get("delimiter");
+        if (!":".equals(del) && !";".equals(del) && !"\r\n".equals(del)) {
+            throw new IllegalArgumentException("Wrong delimiter format");
+        }
+        if (!argsName.get("path").endsWith(".csv") && Paths.get(argsName.get("path")).toFile().exists()) {
             throw new IllegalArgumentException("The paths directory has wrong extension or does not exist");
         }
-        if (argsName.get("delimiter").length() > 12) {
-            throw new IllegalArgumentException("The delimiter should be one type");
+        if (!argsName.get("out").contains("stdout") && !argsName.get("out").contains(".csv")) {
+            throw new IllegalArgumentException("The output format should be or stdout or with .csv extension");
+        }
+        if (argsName.get("filter").isEmpty()) {
+            throw new IllegalArgumentException("The filter value is empty");
         }
     }
 
-    public static void writeOut(ArgsName argsName) throws Exception {
+    public static void writeOut(ArgsName argsName, String rsl) throws Exception {
         if (argsName.get("out").endsWith("stdout")) {
-            System.out.println(handle(argsName));
+            System.out.println(rsl);
         } else {
             try (PrintWriter out = new PrintWriter(
                     new BufferedOutputStream(
                             new FileOutputStream(argsName.get("out"))
                     ))) {
-                out.write(handle(argsName));
+                out.write(rsl);
             }
         }
     }
 
     public static void main(String[] args) throws Exception {
-        ArgsName rsl = ArgsName.of(args);
-        checkArgs(rsl);
-        writeOut(rsl);
+      if (args.length == 4) {
+          handle(ArgsName.of(args));
+      }
     }
 }
