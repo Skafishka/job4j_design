@@ -16,8 +16,9 @@ public class UsageLog4j {
         byte amount = 127;
         short phoneNumber = 12589;
         long homeNumber = 92235789;
+        char className = 'A';
         LOG.debug("User info name : {}, age : {}, student : {}, number in college: {}, \n"
-                        + "laptop memory: {}, money amount : {}, phonenumber : {}, home number : {}",
-                name, age, student, collegeNumber, memory, amount, phoneNumber, homeNumber);
+                        + "laptop memory: {}, money amount : {}, phonenumber : {}, home number : {}, number of class : {}",
+                name, age, student, collegeNumber, memory, amount, phoneNumber, homeNumber, className);
     }
 }
