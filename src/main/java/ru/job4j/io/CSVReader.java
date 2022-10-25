@@ -14,12 +14,11 @@ public class CSVReader {
         List<String> text = new ArrayList<>();
 
         try (var lines = new Scanner(file).useDelimiter(System.lineSeparator())) {
-            var words = lines.useDelimiter(";");
+            var words = lines.useDelimiter(";|\r\n");
             while (words.hasNext()) {
                 fileValues.add(words.next());
             }
         }
-      System.out.println(fileValues.get(3));
 
         try (var filterValues = new Scanner(argsName.get("filter")).useDelimiter(",")) {
             while (filterValues.hasNext()) {
