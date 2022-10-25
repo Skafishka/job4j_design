@@ -14,7 +14,7 @@ public class CSVReader {
         List<String> text = new ArrayList<>();
 
         try (var lines = new Scanner(file).useDelimiter(System.lineSeparator())) {
-            var words = lines.useDelimiter(";|\\r\\n");
+            var words = lines.useDelimiter(";");
             while (words.hasNext()) {
                 fileValues.add(words.next());
             }
