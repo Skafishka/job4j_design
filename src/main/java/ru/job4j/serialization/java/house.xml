@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<house empty="true" constructionAge="1965">
+    <seller name="Oleg"/>
+    <possibleBuyers>
+        <possibleBuyer>Ivan</possibleBuyer>
+        <possibleBuyer>Anna</possibleBuyer>
+        <possibleBuyer>Kristina</possibleBuyer>
+    </possibleBuyers>
+</house>
