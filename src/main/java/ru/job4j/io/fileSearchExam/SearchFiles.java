@@ -1,4 +1,4 @@
-package ru.job4j.io;
+package ru.job4j.io.fileSearchExam;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -20,7 +20,7 @@ public class SearchFiles implements FileVisitor<Path> {
         this.condition = condition;
     }
 
-    public List<Path> getPaths() {
+    List<Path> getPaths() {
         return paths;
     }
 
