@@ -1,4 +1,4 @@
-package ru.job4j.io.fileSearchExam;
+package ru.job4j.io.filesearchexam;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
