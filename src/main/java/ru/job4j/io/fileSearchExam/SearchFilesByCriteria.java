@@ -11,25 +11,23 @@ import java.util.function.Predicate;
 
 public class SearchFilesByCriteria {
 
-    public static List<Path> search(ArgsName argsName) throws IOException {
-        Predicate<Path> condition = new Predicate<Path>() {
-            @Override
-            public boolean test(Path path) {
-                return false;
-            }
-        }
-        SearchFiles searcher = new SearchFiles();
+    public static void search(ArgsName argsName, SearchFiles searcher) throws IOException {
+
         if ("name".equals(argsName.get("t"))) {
             Predicate<Path> condition = p -> p.toFile().getName().equals(argsName.get("n"));
-            SearchFiles searcher = new SearchFiles(condition);
+            searcher = new SearchFiles(condition);
         }
         if ("mask".equals(argsName.get("t"))) {
             Predicate<Path> condition = p -> p.toFile().getName().contains(argsName.get("n"));
-            SearchFiles searcher = new SearchFiles(condition);
+            searcher = new SearchFiles(condition);
         }
         /*if ("regex".equals(argsName.get("t"))) {
             Predicate<Path> condition = p -> p.toFile().getName().matches()
         }*/
-        Files.walkFileTree(argsName.get("d"), searcher);
+        Files.walkFileTree(Path.of(argsName.get("d")), searcher);
+    }
+
+    public static void writeOut(String path) throws IOException {
+
     }
 }
