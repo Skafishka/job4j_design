@@ -1,0 +1,1 @@
+insert into cars(brand,	age, weight) values('Ford', 19, 2010);
