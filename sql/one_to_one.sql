@@ -1,10 +1,10 @@
-create table suppliers(
+create table vin_number(
 	id serial primary key,
-	position varchar(255)
+	numbers varchar(255)
 );
 
-create table shop(
+create table spare_part(
 	id serial primary key,
-	candies varchar(255),
-	suppliers_id int references suppliers(id) unique
+	spare_part_name varchar(255),
+	vin_number_id int references vin_number(id) unique
 );
