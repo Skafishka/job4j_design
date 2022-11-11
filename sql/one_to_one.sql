@@ -1,10 +1,13 @@
-create table vin_number(
+create table owners(
 	id serial primary key,
-	numbers varchar(255)
+	name varchar(255)
 );
 
-create table spare_part(
+create table pets(
 	id serial primary key,
-	spare_part_name varchar(255),
-	vin_number_id int references vin_number(id) unique
+	name varchar(255),
+	owner_id int references owners(id) unique
 );
+
+insert into owners(name) values ('Joe'), ('George');
+insert into pets(name, owner_id) values ('Pipi', 1), ('Grizzly', 2);

@@ -1,13 +1,13 @@
-create table recipe(
+create table brand(
 	id serial primary key,
-	contents varchar(255)
+	name varchar(255)
 );
 
-create table foods(
+create table model(
 	id serial primary key,
-	product varchar(255),
-	recipe_id int references recipe(id)
+	name varchar(255),
+	brand_id int references brand(id)
 );
 
-insert into recipe(contents) values ('salad');
-insert into foods(product, recipe_id) VALUES ('tomato', 1);
+insert into brand(name) values ('VW'), ('Ford');
+insert into model(name, brand_id) values ('Transporter', 1), ('Caddy', 1), ('Mustang', 2);
