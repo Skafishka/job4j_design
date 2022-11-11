@@ -21,20 +21,43 @@ insert into employees(name, department_id) values ('George', 1),
 ('Elmira', 1),
 ('Elon', null);
 
-select * from departments d left join employees e on d.id = e.department_id;
-select * from departments d right join employees e on d.id = e.department_id;
-select * from departments d full join employees e on d.id = e.department_id;
-select * from departments d left join employees e on d.id = e.department_id where e.id is null;
+select * from departments d
+left join employees e
+on d.id = e.department_id;
 
-select * from departments d left join employees e on d.id = e.department_id where e.department_id is not null;
-select * from departments d right join employees e on d.id = e.department_id where e.department_id is not null;
+select * from departments d
+right join employees e
+on d.id = e.department_id;
+
+select * from departments d
+full join employees e
+on d.id = e.department_id;
+
+select * from departments d
+left join employees e
+on d.id = e.department_id
+where e.id is null;
+
+select * from departments d
+left join employees e
+on d.id = e.department_id
+where e.department_id is not null;
+
+select * from departments d
+right join employees e
+on d.id = e.department_id
+where e.department_id is not null;
 
 create table teens(
 	name varchar(255),
 	gender varchar(255)
 );
 
-insert into teens(name, gender) values ('Henri', 'male'), ('Alex', 'male'), ('Kate', 'female'), ('Angeli', 'female'), ('Kris', 'male');
+insert into teens(name, gender) values ('Henri', 'male'),
+('Alex', 'male'),
+('Kate', 'female'),
+('Angeli', 'female'),
+('Kris', 'male');
 
 select m.name, f.name
 from teens m cross join teens f
