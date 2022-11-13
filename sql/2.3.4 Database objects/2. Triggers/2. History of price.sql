@@ -9,9 +9,8 @@ create or replace function product()
 	returns trigger as
 $$
 	BEGIN
-		update history_of_price
-		set name = name, price = price, date = date
-		where id = new.id;
+		insert into history_of_price(name, price, date)
+		values(NEW.name, NEW.price, NEW.date);
 		return NEW;
 	END;
 $$
