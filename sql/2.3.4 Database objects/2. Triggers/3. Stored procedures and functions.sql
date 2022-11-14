@@ -5,6 +5,7 @@ as $$
 	    if u_count <= 0 THEN
     	    delete from products
     	    where id = u_id;
+		end if;
     END;
 $$;
 
@@ -16,6 +17,6 @@ $$
     begin
 		if u_count <= 0 THEN
         	delete from products where id = u_id;
-    end if;
+    	end if;
 	end;
 $$;
