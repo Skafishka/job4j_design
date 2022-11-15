@@ -15,4 +15,4 @@ About project:
 
 ---
 ## Contact
-if you have any questions, feel free to contact me. LinkedIn : linkedin.com/in/sergey-k-71075672
+if you have any questions, feel free to contact me. LinkedIn : linkedin.com/in/s-ko
