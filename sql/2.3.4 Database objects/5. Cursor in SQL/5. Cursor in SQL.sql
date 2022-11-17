@@ -32,8 +32,7 @@ DECLARE
     curs_products SCROLL cursor for
                     select * from products;
 
-FETCH LAST FROM curs_products;
 MOVE LAST FROM curs_products;
-FETCH BACKWARD 19 from curs_products;
+FETCH BACKWARD 20 from curs_products;
 CLOSE curs_roducts;
 commit;
