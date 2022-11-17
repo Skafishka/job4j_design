@@ -10,7 +10,7 @@ create or replace function product()
 $$
 	BEGIN
 		insert into history_of_price(name, price, date)
-		values(NEW.name, NEW.price, NEW.date);
+		values(NEW.name, NEW.price, current_date);
 		return NEW;
 	END;
 $$
