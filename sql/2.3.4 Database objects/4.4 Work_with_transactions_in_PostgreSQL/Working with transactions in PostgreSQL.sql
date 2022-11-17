@@ -21,13 +21,13 @@ insert into products (name, producer, count, price) VALUES ('product_8', 'produc
 savepoint fourth_savepoint;
 select * from products;
 
-rollback to first_savepoint;
+rollback to third_savepoint;
 select * from products;
 
 rollback to second_savepoint;
 select * from products;
 
-rollback to third_savepoint;
+rollback to first_savepoint;
 select * from products;
 
 commit transaction;
