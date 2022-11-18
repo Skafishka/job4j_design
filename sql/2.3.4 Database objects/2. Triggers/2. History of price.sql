@@ -18,6 +18,6 @@ LANGUAGE 'plpgsql';
 
 create trigger update_product
 	after insert
-	on history_of_price
+	on products
 	for each row
 	execute procedure product();
