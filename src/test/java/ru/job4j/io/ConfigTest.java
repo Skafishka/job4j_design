@@ -8,7 +8,7 @@ class ConfigTest {
 
     @Test
     void whenPairWithComment() {
-        String path = "./data/app.properties";
+        String path = "./src/main/resources/app.properties";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name")).isEqualTo("Sergei Kolygin=1");
@@ -18,7 +18,7 @@ class ConfigTest {
     void whenDoubleEqualSign() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
-                    String path = "./data/test1.properties";
+                    String path = "./src/main/resources/test1.properties";
                     Config config = new Config(path);
                     config.load();
                     config.value("surname=");
@@ -30,7 +30,7 @@ class ConfigTest {
     void whenNoEqualSign() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
-                    String path = "./data/test2.properties";
+                    String path = "./src/main/resources/test2.properties";
                     Config config = new Config(path);
                     config.load();
                     config.value("test");
@@ -42,7 +42,7 @@ class ConfigTest {
     void whenNoSign() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
-                    String path = "./data/test3.properties";
+                    String path = "./src/main/resources/test3.properties";
                     Config config = new Config(path);
                     config.load();
                     config.value("check");
