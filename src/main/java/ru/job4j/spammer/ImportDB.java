@@ -8,8 +8,8 @@ import java.util.Properties;
 
 public class ImportDB {
 
-    private Properties cfg;
-    private String dump;
+    private final Properties cfg;
+    private final String dump;
 
     public ImportDB(Properties cfg, String dump) {
         this.cfg = cfg;
@@ -35,13 +35,12 @@ public class ImportDB {
                 cfg.getProperty("jdbc.username"),
                 cfg.getProperty("jdbc.password")
         )) {
-            /*try (Statement st = cnt.createStatement()) {
-                st.execute(String.format("DROP TABLE users"));
+            try (Statement st = cnt.createStatement()) {
                 st.executeUpdate(String.format("CREATE TABLE users (%s, %s, %s);",
                         "id serial primary key", "name varchar(255)", "email varchar(255)"));
-            }*/
+            }
             for (User user : users) {
-                try (PreparedStatement ps = cnt.prepareStatement("insert into users ...")) {
+                try (PreparedStatement ps = cnt.prepareStatement("insert into users(name, email) values (?, ?)")) {
                     ps.setString(1, user.name);
                     ps.setString(2, user.email);
                     ps.execute();
@@ -59,7 +58,6 @@ public class ImportDB {
             this.email = email;
         }
     }
-
 
     public static void main(String[] args) throws Exception {
         Properties cfg = new Properties();
