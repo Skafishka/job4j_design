@@ -21,13 +21,12 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(q -> {
                 String[] array = q.split(";");
-                if (array.length == 2 && !array[0].isEmpty() && !array[1].isEmpty()) {
-                    User user = new User(array[0], array[1]);
-                    users.add(user);
+                if (array.length != 2 || array[0].isEmpty() || array[1].isEmpty()) {
+                    throw new IllegalArgumentException("Wrong data");
                 }
+                User user = new User(array[0], array[1]);
+                users.add(user);
             });
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Wrong data");
         }
         return users;
     }
